@@ -13,7 +13,6 @@ namespace TrashPickupProject.Models
         [Key]
         public int Id { get; set; }
 
-
         public int Zipcode { get; set; }
         public string StreetAddress { get; set; }
         public string Name { get; set; }
