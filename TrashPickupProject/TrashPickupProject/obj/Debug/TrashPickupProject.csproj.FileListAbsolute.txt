@@ -82,3 +82,4 @@ D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\
 D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.pdb
 D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.Migrations.InitialCreate.resources
 D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.csproj.GenerateResource.Cache
+D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.Migrations.Addedcustomerandtemporarypickupday.resources
