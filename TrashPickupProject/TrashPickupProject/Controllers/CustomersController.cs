@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrashPickupProject.Models;
+using Microsoft.AspNet.Identity;
+using System.Web.Security;
 
 namespace TrashPickupProject.Controllers
 {
@@ -17,8 +19,21 @@ namespace TrashPickupProject.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            var customer = db.Customer.Include(c => c.TemporaryPickup);
-            return View(customer.ToList());
+
+            if (User.IsInRole("Admin") || User.IsInRole("TrashCollector"))
+            {
+                return View(db.Customer.ToList()); 
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                string currentUserId = User.Identity.GetUserId();
+                ViewBag.CurrentUserId = currentUserId;
+                return View("CustomerIndex", db.Customer.ToList());
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         // GET: Customers/Details/5
@@ -37,10 +52,20 @@ namespace TrashPickupProject.Controllers
         }
 
         // GET: Customers/Create
+        [Authorize(Roles = "Customer")]
         public ActionResult Create()
         {
-            ViewBag.TemporaryPickupId = new SelectList(db.TemporaryPickup, "Id", "DayOfWeek");
-            return View();
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            if (!currentUser.HasCustomerDetails)
+            {
+
+                return View();
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         // POST: Customers/Create
@@ -48,16 +73,20 @@ namespace TrashPickupProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Zipcode,StreetAddress,Name,DayOfPickup,Balance,TemporaryPickupId")] Customer customer)
+        public ActionResult Create([Bind(Include = "Id,Zipcode,StreetAddress,Name,DayOfPickup")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+                customer.ApplicationUserId = currentUserId;
+                customer.ApplicationUser = currentUser;
                 db.Customer.Add(customer);
+                currentUser.HasCustomerDetails = true;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TemporaryPickupId = new SelectList(db.TemporaryPickup, "Id", "DayOfWeek", customer.TemporaryPickupId);
             return View(customer);
         }
 
@@ -73,7 +102,7 @@ namespace TrashPickupProject.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TemporaryPickupId = new SelectList(db.TemporaryPickup, "Id", "DayOfWeek", customer.TemporaryPickupId);
+
             return View(customer);
         }
 
@@ -82,15 +111,15 @@ namespace TrashPickupProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Zipcode,StreetAddress,Name,DayOfPickup,Balance,TemporaryPickupId")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Id,Zipcode,StreetAddress,Name,DayOfPickup,ApplicationUser,ApplicationUserId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TemporaryPickupId = new SelectList(db.TemporaryPickup, "Id", "DayOfWeek", customer.TemporaryPickupId);
             return View(customer);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrashPickupProject.Models
 {
@@ -82,6 +83,12 @@ namespace TrashPickupProject.Models
 
         [Display(Name = "Trash Man Secret Code (For Trash Mans)")]
         public string TrashManCode { get; set; }
+
+        public bool HasCustomerDetails { get; set; }
+
+        [ForeignKey("Customer")]
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 
     public class ResetPasswordViewModel

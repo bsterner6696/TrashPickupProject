@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TemporaryPickup.DayOfWeek)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Zipcode)
         </th>
         <th>
@@ -34,9 +31,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TemporaryPickup.DayOfWeek)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Zipcode)
         </td>

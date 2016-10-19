@@ -19,8 +19,8 @@ namespace TrashPickupProject.Models
         public string DayOfPickup { get; set; }
         public double Balance { get; set; }
 
-        [ForeignKey("TemporaryPickup")]
-        public int TemporaryPickupId { get; set; }
-        public TemporaryPickup TemporaryPickup { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
