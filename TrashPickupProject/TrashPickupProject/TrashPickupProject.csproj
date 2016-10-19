@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201610181900278_Made values of customer required.Designer.cs">
       <DependentUpon>201610181900278_Made values of customer required.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610191258360_Added trash man password.cs" />
+    <Compile Include="Migrations\201610191258360_Added trash man password.Designer.cs">
+      <DependentUpon>201610191258360_Added trash man password.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -316,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610181900278_Made values of customer required.resx">
       <DependentUpon>201610181900278_Made values of customer required.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191258360_Added trash man password.resx">
+      <DependentUpon>201610191258360_Added trash man password.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

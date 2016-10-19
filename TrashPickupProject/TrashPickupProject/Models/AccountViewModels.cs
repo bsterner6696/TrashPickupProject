@@ -79,6 +79,9 @@ namespace TrashPickupProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Trash Man Secret Code (For Trash Mans)")]
+        public string TrashManCode { get; set; }
     }
 
     public class ResetPasswordViewModel

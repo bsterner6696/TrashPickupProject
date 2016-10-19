@@ -153,6 +153,20 @@ namespace TrashPickupProject.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (model.TrashManCode == "Legalize Ranch 2016")
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "TrashCollector");
+                }
+                else if (model.TrashManCode == "Dont trust big salad 69")
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "Admin");
+                }
+                else
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "Customer");
+                }
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -163,6 +177,11 @@ namespace TrashPickupProject.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+
+                    //if (User.IsInRole("Customer"))
+                    //{
+                    //    return RedirectToAction("")
+                    //}
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
