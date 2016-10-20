@@ -234,6 +234,14 @@
     <Compile Include="Migrations\201610192038165_Removed temporary pickup from customer.Designer.cs">
       <DependentUpon>201610192038165_Removed temporary pickup from customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610201413296_fixed stuff.cs" />
+    <Compile Include="Migrations\201610201413296_fixed stuff.Designer.cs">
+      <DependentUpon>201610201413296_fixed stuff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610201437165_Added foreign key to temporary pickup for customer.cs" />
+    <Compile Include="Migrations\201610201437165_Added foreign key to temporary pickup for customer.Designer.cs">
+      <DependentUpon>201610201437165_Added foreign key to temporary pickup for customer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -345,6 +353,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610192038165_Removed temporary pickup from customer.resx">
       <DependentUpon>201610192038165_Removed temporary pickup from customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610201413296_fixed stuff.resx">
+      <DependentUpon>201610201413296_fixed stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610201437165_Added foreign key to temporary pickup for customer.resx">
+      <DependentUpon>201610201437165_Added foreign key to temporary pickup for customer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

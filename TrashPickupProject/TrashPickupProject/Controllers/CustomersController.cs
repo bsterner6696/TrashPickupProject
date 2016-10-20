@@ -64,7 +64,7 @@ namespace TrashPickupProject.Controllers
             }
             else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
         }
 
@@ -91,6 +91,7 @@ namespace TrashPickupProject.Controllers
         }
 
         // GET: Customers/Edit/5
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -98,12 +99,20 @@ namespace TrashPickupProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customer.Find(id);
-            if (customer == null)
+            string currentUserId = User.Identity.GetUserId();
+            if (customer.ApplicationUserId == currentUserId || User.IsInRole("Admin"))
             {
-                return HttpNotFound();
-            }
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
 
-            return View(customer);
+                return View(customer); 
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Customers/Edit/5
@@ -145,6 +154,8 @@ namespace TrashPickupProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customer.Find(id);
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == customer.ApplicationUserId);
+            currentUser.HasCustomerDetails = false;
             db.Customer.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
