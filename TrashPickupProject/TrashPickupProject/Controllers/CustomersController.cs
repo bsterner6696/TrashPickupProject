@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using TrashPickupProject.Models;
 using Microsoft.AspNet.Identity;
-using System.Web.Security;
+
 
 namespace TrashPickupProject.Controllers
 {
