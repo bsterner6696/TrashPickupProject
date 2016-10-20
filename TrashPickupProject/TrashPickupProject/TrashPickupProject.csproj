@@ -324,6 +324,7 @@
     <Content Include="Views\TemporaryPickups\Edit.cshtml" />
     <Content Include="Views\TemporaryPickups\Index.cshtml" />
     <Content Include="Views\TemporaryPickups\CustomerIndex.cshtml" />
+    <Content Include="Views\Customers\EmployeeIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
