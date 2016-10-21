@@ -14,8 +14,19 @@
 {
     <p>
         Zipcode: @Html.TextBox("zipCode")
-        Date: @Html.TextBox("date")
-        Day: @Html.TextBox("day")
+        Date: @Html.EditorFor("date")
+        Day: @Html.DropDownList("day", new SelectList(
+                  new List<Object>{
+                       new { value = "Monday" , text = "Monday"  },
+                       new { value = "Tuesday" , text = "Tuesday" },
+                       new { value = "Wednesday" , text = "Wednesday"},
+                       new { value = "Thursday" , text = "Thursday"},
+                       new { value = "Friday" , text = "Friday"}
+                    },
+                  "value",
+                  "text",
+                   2))
+        CASH MONEY @Html.TextBox("money")
         <input type="submit" value="Search" />
     </p>
 }

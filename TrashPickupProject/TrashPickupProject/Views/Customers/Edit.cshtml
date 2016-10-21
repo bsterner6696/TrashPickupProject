@@ -18,6 +18,7 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.ApplicationUser)
         @Html.HiddenFor(model => model.ApplicationUserId)
+        @Html.HiddenFor(model => model.Balance)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -46,7 +47,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DayOfPickup, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DayOfPickup, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.DayOfPickup, new SelectList(
+                  new List<Object>{
+                       new { value = "Monday" , text = "Monday"  },
+                       new { value = "Tuesday" , text = "Tuesday" },
+                       new { value = "Wednesday" , text = "Wednesday"},
+                       new { value = "Thursday" , text = "Thursday"},
+                       new { value = "Friday" , text = "Friday"},
+                       new { value = "None" , text = "None"}
+                    },
+                  "value",
+                  "text",
+                   2))
                 @Html.ValidationMessageFor(model => model.DayOfPickup, "", new { @class = "text-danger" })
             </div>
         </div>

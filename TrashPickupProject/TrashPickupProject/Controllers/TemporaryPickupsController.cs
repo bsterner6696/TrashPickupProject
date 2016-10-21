@@ -16,6 +16,7 @@ namespace TrashPickupProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TemporaryPickups
+        [Authorize]
         public ActionResult Index()
         {
 
@@ -45,6 +46,7 @@ namespace TrashPickupProject.Controllers
         }
 
         // GET: TemporaryPickups/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -60,6 +62,7 @@ namespace TrashPickupProject.Controllers
         }
 
         // GET: TemporaryPickups/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.CustomerId = new SelectList(db.Customer, "Id", "StreetAddress");
@@ -97,6 +100,7 @@ namespace TrashPickupProject.Controllers
         }
 
         // GET: TemporaryPickups/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -130,6 +134,7 @@ namespace TrashPickupProject.Controllers
         }
 
         // GET: TemporaryPickups/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

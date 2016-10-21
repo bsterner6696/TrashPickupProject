@@ -92,3 +92,4 @@ D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\
 D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.Migrations.fixedstuff.resources
 D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.Migrations.Addedforeignkeytotemporarypickupforcustomer.resources
 D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\bin\GoogleMaps.LocationServices.dll
+D:\devclass\github\TrashPickupProject\TrashPickupProject\TrashPickupProject\obj\Debug\TrashPickupProject.Migrations.EditedTemporaryDatestartandenddateattributes.resources
