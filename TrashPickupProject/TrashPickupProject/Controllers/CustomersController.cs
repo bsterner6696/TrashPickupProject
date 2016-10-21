@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using TrashPickupProject.Models;
 using Microsoft.AspNet.Identity;
+using GoogleMaps.LocationServices;
 
 
 namespace TrashPickupProject.Controllers
@@ -22,7 +23,7 @@ namespace TrashPickupProject.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                return View(db.Customer.ToList()); 
+                return View(db.Customer.ToList());
             }
             else if (User.IsInRole("Customer"))
             {
@@ -37,27 +38,38 @@ namespace TrashPickupProject.Controllers
                 DateTime Date = DateTime.Now;
                 DateTime.TryParse(date, out Date);
 
-                    var Customers = from x in db.Customer
-                                    select x;
-                    var TemporaryDates = from y in db.TemporaryPickup
-                                         select y;
-                    Customers = Customers.Where(x => x.Zipcode == ZipCode);
-                    var PotentialTemporaryPickups = TemporaryDates.Where(y => y.StartDate < Date && y.EndDate > Date);
-                    var PotentialTemporaryPickupsInZipcode = from x in Customers
-                                                             join y in PotentialTemporaryPickups on x.Id equals y.CustomerId
-                                                             select y;
-                    var TemporaryPickupsInZipcodeToday = PotentialTemporaryPickupsInZipcode.Where(x => x.DayOfWeek == day);
-                    var TemporaryPickupsInZipcodeNotToday = PotentialTemporaryPickupsInZipcode.Where(x => x.DayOfWeek != day);
-                    var CustomersToday = Customers.Where(x => x.DayOfPickup == day);
-                    var CustomersWithTemporaryPickupsTodayInZipcode = from x in TemporaryPickupsInZipcodeToday
-                                                                      join y in Customers on x.CustomerId equals y.Id
-                                                                      select y;
-                    var CustomersWithTemporaryPickupsNotTodayInZipcode = from x in TemporaryPickupsInZipcodeNotToday
-                                                                         join y in Customers on x.CustomerId equals y.Id
-                                                                         select y;
-                    var PossiblePickupsToday = CustomersToday.Union(CustomersWithTemporaryPickupsTodayInZipcode);
-                    var ActualPickupsToday = PossiblePickupsToday.Except(CustomersWithTemporaryPickupsNotTodayInZipcode);
+                var Customers = from x in db.Customer
+                                select x;
+                var TemporaryDates = from y in db.TemporaryPickup
+                                     select y;
+                Customers = Customers.Where(x => x.Zipcode == ZipCode);
+                var PotentialTemporaryPickups = TemporaryDates.Where(y => y.StartDate < Date && y.EndDate > Date);
+                var PotentialTemporaryPickupsInZipcode = from x in Customers
+                                                         join y in PotentialTemporaryPickups on x.Id equals y.CustomerId
+                                                         select y;
+                var TemporaryPickupsInZipcodeToday = PotentialTemporaryPickupsInZipcode.Where(x => x.DayOfWeek == day);
+                var TemporaryPickupsInZipcodeNotToday = PotentialTemporaryPickupsInZipcode.Where(x => x.DayOfWeek != day);
+                var CustomersToday = Customers.Where(x => x.DayOfPickup == day);
+                var CustomersWithTemporaryPickupsTodayInZipcode = from x in TemporaryPickupsInZipcodeToday
+                                                                  join y in Customers on x.CustomerId equals y.Id
+                                                                  select y;
+                var CustomersWithTemporaryPickupsNotTodayInZipcode = from x in TemporaryPickupsInZipcodeNotToday
+                                                                     join y in Customers on x.CustomerId equals y.Id
+                                                                     select y;
+                var PossiblePickupsToday = CustomersToday.Union(CustomersWithTemporaryPickupsTodayInZipcode);
+                var ActualPickupsToday = PossiblePickupsToday.Except(CustomersWithTemporaryPickupsNotTodayInZipcode);
 
+                List<double[]> points = new List<double[]>();
+                foreach (Customer x in ActualPickupsToday)
+                {
+                    var address = x.StreetAddress + x.Zipcode.ToString();
+                    var locationService = new GoogleLocationService();
+                    var point = locationService.GetLatLongFromAddress(address);
+                    double[] latLong = new double[] { point.Latitude, point.Longitude };
+                    points.Add(latLong);
+
+                }
+                ViewBag.MapPoints = points;
                     return View("EmployeeIndex", ActualPickupsToday);
             }
             else

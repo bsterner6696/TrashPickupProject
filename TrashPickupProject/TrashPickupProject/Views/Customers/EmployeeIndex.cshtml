@@ -4,6 +4,7 @@
     ViewBag.Title = "Index";
 }
 
+
 <h2>Index</h2>
 
 <p>
@@ -19,50 +20,81 @@
     </p>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Zipcode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StreetAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DayOfPickup)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Balance)
-        </th>
 
-    </tr>
+<div id="map" style="width:100%;height:500px"></div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zipcode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StreetAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DayOfPickup)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Balance)
-        </td>
+<script>
+    var map = new google.maps.LatLng(51.5, -0.2);
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    function myMap() {
+        var mapCanvas = document.getElementById("map");
+        var mapOptions = {
+            center: new google.maps.LatLng(51.5, -0.2),
+            zoom: 10
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+    
+        @foreach (var item in ViewBag.MapPoints)
+    {
+     <text>
+        var latLong = new google.maps.LatLng(@item[0],@item[1])
+        var marker = new google.maps.Marker({
+            position: latLong,
+            map: map
+        })
+        map.setCenter(latLong);
+    
+        </text>
 
-</table>
+    }
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3GqVdUeO6tiEb9zHISTxN-WNiD2WaA9A&callback=myMap"></script>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Zipcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StreetAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DayOfPickup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zipcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StreetAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOfPickup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
