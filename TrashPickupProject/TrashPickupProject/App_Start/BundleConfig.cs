@@ -19,14 +19,6 @@ namespace TrashPickupProject
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/newAge/css/new-age.css",
-                      "~/Content/site.css"));
-
             bundles.Add(new ScriptBundle("~/bundles/jqueryui")
    .Include("~/Scripts/jquery-ui-{version}.js"));
 
@@ -40,7 +32,7 @@ namespace TrashPickupProject
               "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                          "~/Content/bootstrap.css",
+                "~/Content/bootstrapNew.css",
                           "~/Content/bootstrap-datepicker3.css",
                           "~/Content/site.css"));
         }
