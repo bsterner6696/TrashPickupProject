@@ -154,11 +154,11 @@ namespace TrashPickupProject.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, HasCustomerDetails = false };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                if (model.TrashManCode == "Legalize Ranch 2016")
+                if (model.TrashManCode == "Employee2016!")
                 {
                     await UserManager.AddToRoleAsync(user.Id, "TrashCollector");
                 }
-                else if (model.TrashManCode == "Dont trust big salad 69")
+                else if (model.TrashManCode == "1234Admin!!")
                 {
                     await UserManager.AddToRoleAsync(user.Id, "Admin");
                 }
